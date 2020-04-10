@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import {getTODO, getSW} from './utils';
+import {getTODO, getSW} from 'utils';
 
 class App extends Component {
 	constructor(props) {
