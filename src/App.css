@@ -61,6 +61,11 @@ body {
   width: 40%;
 }
 
+.error {
+  align-self: center;
+  padding: 5px;
+}
+
 .loader-show {
   display: block;
   align-self: center;

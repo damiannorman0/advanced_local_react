@@ -6,7 +6,9 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			results: []
+			loading: false,
+			results: [],
+			errorMessage: ''
 		};
 	}
 
@@ -28,7 +30,7 @@ class App extends Component {
             </div>
 		});
 
-		const {loading} = this.state;
+		const {loading, errorMessage} = this.state;
 		const loadingClass = loading? 'loader-show' : '';
 
 		return (
@@ -44,9 +46,15 @@ class App extends Component {
 								getTODO().then((response = []) => {
 									this.setState({
 										loading: false,
-										results: [...response]
+										results: [...response],
+										errorMessage: ''
 									});
 								}).catch(error => {
+									this.setState({
+										loading: false,
+										results: [],
+										errorMessage: error.message
+									});
 									console.error(error.message);
 								})
 							});
@@ -62,9 +70,15 @@ class App extends Component {
 								getSW().then(({results = []} = {}) => {
 									this.setState({
 										loading: false,
-										results: [...results]
+										results: [...results],
+										errorMessage: ''
 									});
 								}).catch(error => {
+									this.setState({
+										loading: false,
+										results: [],
+										errorMessage: error.message
+									});
 									console.error(error.message);
 								});
 							});
@@ -74,6 +88,7 @@ class App extends Component {
 					<div className="results">
 						<div className="title">Results:</div>
 						<div id="results-container">{results}</div>
+						{errorMessage && <div className="error">{errorMessage}</div>}
 					</div>
 				</div>
 			</div>
